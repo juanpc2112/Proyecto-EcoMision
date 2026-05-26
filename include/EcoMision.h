@@ -30,6 +30,7 @@ private:
     void listarReservas();
     void listarExploradores();
     void controlarExplorador();
+    void verHistorialZona();
 
     // Menu del explorador
     void menuExplorador(Explorador* explorador);

@@ -14,7 +14,7 @@ void EcoMision::iniciar() {
 
     do {
 
-        std::cout << "\nECO MISION\n";
+        std::cout << "\n===== ECO MISION =====\n";
         std::cout << "1. Crear reserva\n";
         std::cout << "2. Crear explorador\n";
         std::cout << "3. Registrar zona en una reserva\n";
@@ -22,7 +22,8 @@ void EcoMision::iniciar() {
         std::cout << "5. Listar reservas\n";
         std::cout << "6. Listar exploradores\n";
         std::cout << "7. Controlar explorador\n";
-        std::cout << "8. Salir\n";
+        std::cout << "8. Ver historial de una zona\n";
+        std::cout << "9. Salir\n";
         std::cout << "Opcion: ";
 
         std::cin >> opcion;
@@ -58,6 +59,10 @@ void EcoMision::iniciar() {
                 break;
 
             case 8:
+                verHistorialZona();
+                break;
+
+            case 9:
                 std::cout << "Saliendo del sistema...\n";
                 break;
 
@@ -65,11 +70,12 @@ void EcoMision::iniciar() {
                 std::cout << "Opcion invalida\n";
         }
 
-    } while(opcion != 8);
+    } while(opcion != 9);
 }
 
+// ─────────────────────────────────────────
 //  CREACION
-
+// ─────────────────────────────────────────
 
 void EcoMision::crearReserva() {
 
@@ -224,12 +230,12 @@ void EcoMision::listarReservas() {
 
     std::cout << "\n--- Reservas ---\n";
 
-    for(int i = 0; i < reservas.size(); i++) {
+    for(int i = 0; i < (int)reservas.size(); i++) {
 
         std::cout << i + 1 << ". " << reservas[i]->getNombre() << "\n";
     }
 
-    for(int i = 0; i < reservas.size(); i++) {
+    for(int i = 0; i < (int)reservas.size(); i++) {
 
         reservas[i]->mostrarZonas();
     }
@@ -245,9 +251,42 @@ void EcoMision::listarExploradores() {
 
     std::cout << "\n--- Exploradores ---\n";
 
-    for(int i = 0; i < exploradores.size(); i++) {
+    for(int i = 0; i < (int)exploradores.size(); i++) {
 
         exploradores[i]->mostrarEstado();
+    }
+}
+
+void EcoMision::verHistorialZona() {
+
+    if(reservas.empty()) {
+
+        std::cout << "No hay reservas creadas\n";
+        return;
+    }
+
+    Reserva* reserva = seleccionarReserva();
+
+    if(reserva == nullptr) return;
+
+    std::string codigoZona;
+
+    std::cout << "Ingrese el codigo de la zona: ";
+    std::cin >> codigoZona;
+
+    Zona* zona = reserva->buscarZona(codigoZona);
+
+    if(zona == nullptr) {
+
+        std::cout << "Zona no encontrada\n";
+        return;
+    }
+
+    zona->mostrarHistorial();
+
+    if(zona->getTipoZona() == "Natural") {
+
+        zona->mostrarInfoNatural();
     }
 }
 
@@ -276,7 +315,6 @@ void EcoMision::controlarExplorador() {
         return;
     }
 
-    // Si el explorador no tiene zona, lo ubicamos primero
     if(explorador->getZonaActual() == nullptr) {
 
         if(reservas.empty()) {
@@ -286,7 +324,7 @@ void EcoMision::controlarExplorador() {
         }
 
         std::cout << "\nEl explorador no tiene zona asignada\n";
-        std::cout << "Seleccione una reserva para ingresar:\n";
+        std::cout << "Seleccione una reserva por su numero para ingresar:\n";
 
         Reserva* reserva = seleccionarReserva();
 
@@ -326,9 +364,9 @@ void EcoMision::menuExplorador(Explorador* explorador) {
 
     do {
 
-        std::cout << "\MENU EXPLORADOR: "
+        std::cout << "\n===== MENU EXPLORADOR: "
                   << explorador->getNombre()
-                  << " \n";
+                  << " =====\n";
 
         Zona* zona = explorador->getZonaActual();
 
@@ -348,7 +386,8 @@ void EcoMision::menuExplorador(Explorador* explorador) {
         std::cout << "3. Interactuar con un elemento\n";
         std::cout << "4. Moverse a otra zona\n";
         std::cout << "5. Plantar semilla\n";
-        std::cout << "6. Volver al menu principal\n";
+        std::cout << "6. Ver historial de la zona actual\n";
+        std::cout << "7. Volver al menu principal\n";
         std::cout << "Opcion: ";
 
         std::cin >> opcion;
@@ -360,9 +399,9 @@ void EcoMision::menuExplorador(Explorador* explorador) {
                 break;
 
             case 2:
-                if(explorador->getZonaActual() != nullptr) {
+                if(zona != nullptr) {
 
-                    explorador->getZonaActual()->mostrarElementos();
+                    zona->mostrarElementos();
                 }
 
                 else {
@@ -385,6 +424,24 @@ void EcoMision::menuExplorador(Explorador* explorador) {
                 break;
 
             case 6:
+                if(zona != nullptr) {
+
+                    zona->mostrarHistorial();
+
+                    if(zona->getTipoZona() == "Natural") {
+
+                        zona->mostrarInfoNatural();
+                    }
+                }
+
+                else {
+
+                    std::cout << "El explorador no tiene zona asignada\n";
+                }
+
+                break;
+
+            case 7:
                 std::cout << "Volviendo al menu principal...\n";
                 break;
 
@@ -392,7 +449,10 @@ void EcoMision::menuExplorador(Explorador* explorador) {
                 std::cout << "Opcion invalida\n";
         }
 
-    } while(opcion != 6);
+        // Actualizar zona por si cambio al moverse
+        zona = explorador->getZonaActual();
+
+    } while(opcion != 7);
 }
 
 void EcoMision::interactuarEnZona(Explorador* explorador) {
@@ -407,13 +467,62 @@ void EcoMision::interactuarEnZona(Explorador* explorador) {
 
     zona->mostrarElementos();
 
-    std::cout << "\nIngrese el numero del elemento "
-              << "con el que desea interactuar: ";
+    if(zona->getTipoZona() == "Natural") {
 
-    int indice;
-    std::cin >> indice;
+        std::cout << "\nModos de interaccion:\n";
+        std::cout << "1. Por numero de elemento\n";
+        std::cout << "2. Por nombre del elemento\n";
+        std::cout << "3. Por categoria del elemento\n";
+        std::cout << "Modo: ";
 
-    zona->interactuarElemento(indice - 1, explorador);
+        int modo;
+        std::cin >> modo;
+
+        if(modo == 1) {
+
+            std::cout << "Ingrese el numero del elemento: ";
+            int indice;
+            std::cin >> indice;
+            zona->interactuarElemento(indice - 1, explorador);
+        }
+
+        else if(modo == 2) {
+
+            std::cout << "Ingrese el nombre del elemento"
+                      << " (ej: AnimalHerido, SemillaNativa): ";
+            std::string nombre;
+            std::cin >> nombre;
+            zona->interactuarElemento(nombre, explorador);
+        }
+
+        else if(modo == 3) {
+
+            std::cout << "Ingrese la categoria"
+                      << " (Natural / Contaminante / Tecnologico): ";
+            std::string cat;
+            std::cin >> cat;
+
+            std::cout << "Ingrese la posicion dentro de esa categoria"
+                      << " (1, 2, ...): ";
+            int cual;
+            std::cin >> cual;
+
+            zona->interactuarElemento(cat, cual, explorador);
+        }
+
+        else {
+
+            std::cout << "Modo invalido\n";
+        }
+    }
+
+    else {
+
+        std::cout << "\nIngrese el numero del elemento: ";
+        int indice;
+        std::cin >> indice;
+        zona->interactuarElemento(indice - 1, explorador);
+    }
 }
 
 void EcoMision::moverExplorador(Explorador* explorador) {
@@ -477,7 +586,7 @@ Reserva* EcoMision::seleccionarReserva() {
 
     std::cout << "\nReservas disponibles:\n";
 
-    for(int i = 0; i < reservas.size(); i++) {
+    for(int i = 0; i < (int)reservas.size(); i++) {
 
         std::cout << i + 1 << ". "
                   << reservas[i]->getNombre() << "\n";
@@ -488,7 +597,7 @@ Reserva* EcoMision::seleccionarReserva() {
     int indice;
     std::cin >> indice;
 
-    if(indice < 1 || indice > reservas.size()) {
+    if(indice < 1 || indice > (int)reservas.size()) {
 
         std::cout << "Indice invalido\n";
         return nullptr;
@@ -499,7 +608,7 @@ Reserva* EcoMision::seleccionarReserva() {
 
 Explorador* EcoMision::buscarExplorador(std::string nombre) {
 
-    for(int i = 0; i < exploradores.size(); i++) {
+    for(int i = 0; i < (int)exploradores.size(); i++) {
 
         if(exploradores[i]->getNombre() == nombre) {
 

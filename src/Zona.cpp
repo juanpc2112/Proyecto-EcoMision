@@ -11,6 +11,10 @@ Zona::Zona(std::string nombre,
     contaminada = false;
 }
 
+// ─────────────────────────────────────────
+//  METODOS PRIVADOS
+// ─────────────────────────────────────────
+
 void Zona::recalcularContaminacion() {
 
     for(int i = 0; i < elementos.size(); i++) {
@@ -31,7 +35,7 @@ int Zona::contarSemillas() {
 
     for(int i = 0; i < elementos.size(); i++) {
 
-        if(elementos[i]->getCategoria() == "Natural") {
+        if(elementos[i]->getNombre() == "SemillaNativa") {
 
             contador++;
         }
@@ -40,6 +44,19 @@ int Zona::contarSemillas() {
     return contador;
 }
 
+void Zona::registrarInteraccion(std::string nombreElemento,
+                                std::string categoria) {
+
+    historial.push_back(
+        "Interactuado con: " + nombreElemento +
+        " [" + categoria + "]"
+    );
+}
+
+// ─────────────────────────────────────────
+//  METODOS PUBLICOS
+// ─────────────────────────────────────────
+
 void Zona::agregarElemento(ElementoInteractivo* elemento) {
 
     if(tipoZona == "Tecnologica" &&
@@ -47,6 +64,15 @@ void Zona::agregarElemento(ElementoInteractivo* elemento) {
 
         std::cout << "No se puede agregar un elemento natural "
                   << "a una zona tecnologica\n";
+
+        return;
+    }
+
+    if(tipoZona == "Natural" &&
+       elemento->getCategoria() == "Tecnologico") {
+
+        std::cout << "No se puede agregar un elemento tecnologico "
+                  << "a una zona natural\n";
 
         return;
     }
@@ -87,22 +113,54 @@ void Zona::mostrarElementos() {
 
     if(tipoZona == "Natural") {
 
-        int semillas = contarSemillas();
-
-        std::cout << "\nSemillas disponibles en la zona: "
-                  << semillas
-                  << "\n";
+        mostrarInfoNatural();
     }
 }
 
+void Zona::mostrarHistorial() {
+
+    std::cout << "\n--- Historial de interacciones en "
+              << nombre << " ---\n";
+
+    if(historial.size() == 0) {
+
+        std::cout << "No se han realizado interacciones en esta zona\n";
+        return;
+    }
+
+    for(int i = 0; i < historial.size(); i++) {
+
+        std::cout << i + 1 << ". " << historial[i] << "\n";
+    }
+
+    std::cout << "Total de interacciones: "
+              << historial.size() << "\n";
+}
+
+void Zona::mostrarInfoNatural() {
+
+    int semillas = contarSemillas();
+
+    std::cout << "\nSemillas disponibles en la zona: "
+              << semillas << "\n";
+}
+
+// ─────────────────────────────────────────
+//  SOBRECARGAS DE interactuarElemento
+// ─────────────────────────────────────────
+
+// Sobrecarga 1: por indice
 void Zona::interactuarElemento(int indice,
                                Explorador* explorador) {
 
-    if(indice < 0 || indice >= elementos.size()) {
+    if(indice < 0 || indice >= (int)elementos.size()) {
 
         std::cout << "Indice invalido\n";
         return;
     }
+
+    std::string nombreGuardado  = elementos[indice]->getNombre();
+    std::string categoriaGuardada = elementos[indice]->getCategoria();
 
     elementos[indice]->interactuar(explorador);
 
@@ -112,15 +170,20 @@ void Zona::interactuarElemento(int indice,
 
     recalcularContaminacion();
 
+    registrarInteraccion(nombreGuardado, categoriaGuardada);
+
     std::cout << "El elemento desaparecio de la zona\n";
 }
 
+// Sobrecarga 2: por nombre del elemento
 void Zona::interactuarElemento(std::string nombreElemento,
                                Explorador* explorador) {
 
-    for(int i = 0; i < elementos.size(); i++) {
+    for(int i = 0; i < (int)elementos.size(); i++) {
 
         if(elementos[i]->getNombre() == nombreElemento) {
+
+            std::string categoriaGuardada = elementos[i]->getCategoria();
 
             elementos[i]->interactuar(explorador);
 
@@ -130,6 +193,8 @@ void Zona::interactuarElemento(std::string nombreElemento,
 
             recalcularContaminacion();
 
+            registrarInteraccion(nombreElemento, categoriaGuardada);
+
             std::cout << "El elemento desaparecio de la zona\n";
 
             return;
@@ -138,6 +203,50 @@ void Zona::interactuarElemento(std::string nombreElemento,
 
     std::cout << "Elemento no encontrado\n";
 }
+
+// Sobrecarga 3: por categoria y posicion dentro de esa categoria
+void Zona::interactuarElemento(std::string categoria,
+                               int cual,
+                               Explorador* explorador) {
+
+    int contador = 0;
+
+    for(int i = 0; i < (int)elementos.size(); i++) {
+
+        if(elementos[i]->getCategoria() == categoria) {
+
+            if(contador == cual - 1) {
+
+                std::string nombreGuardado = elementos[i]->getNombre();
+
+                elementos[i]->interactuar(explorador);
+
+                delete elementos[i];
+
+                elementos.erase(elementos.begin() + i);
+
+                recalcularContaminacion();
+
+                registrarInteraccion(nombreGuardado, categoria);
+
+                std::cout << "El elemento desaparecio de la zona\n";
+
+                return;
+            }
+
+            contador++;
+        }
+    }
+
+    std::cout << "No se encontro el elemento numero "
+              << cual
+              << " de categoria "
+              << categoria << "\n";
+}
+
+// ─────────────────────────────────────────
+//  GETTERS
+// ─────────────────────────────────────────
 
 std::string Zona::getNombre() {
 

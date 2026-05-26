@@ -11,8 +11,8 @@ AguaContaminada::AguaContaminada()
 void AguaContaminada::interactuar(
     Explorador* explorador) {
 
-    std::cout << "El explorador toco agua contaminada "
-              << "y perdio energia\n";
+    std::cout << "El explorador limpia el agua contaminada "
+              << "y pierde energia\n";
 
     explorador->perderEnergia(15);
 }
