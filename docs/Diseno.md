@@ -227,6 +227,8 @@ class EcoMision{
     + listarExploradores()
     + controlarExplorador()
     + verHistorialZona()
+    + buscarZonaMenu()
+    + ~EcoMision()
     - menuExplorador(Explorador* explorador)
     - moverExplorador(Explorador* explorador)
     - interactuarEnZona(Explorador* explorador)
@@ -237,11 +239,13 @@ class EcoMision{
 class Reserva{
     - string nombre
     - unordered_map~string, Zona*~ zonas
+    - vector~Zona*~ listaZonas
     + Reserva(string nombre)
     + agregarZona(string codigo, Zona* zona)
     + buscarZona(string codigo) Zona*
     + mostrarZonas()
     + getNombre() string
+    + ~Reserva()
 }
 class Zona{
     - string nombre
@@ -262,6 +266,7 @@ class Zona{
     + getTipoZona() string
     + estaContaminada() bool
     + setContaminada(bool estado)
+    + ~Zona()
     - recalcularContaminacion()
     - contarSemillas() int
     - registrarInteraccion(string nombre, string categoria)
@@ -292,6 +297,7 @@ class ElementoInteractivo{
     + interactuar(Explorador* explorador)* void
     + getNombre() string
     + getCategoria() string
+    + ~ElementoInteractivo()
 }
 class AnimalHerido{
     + interactuar(Explorador* explorador)
