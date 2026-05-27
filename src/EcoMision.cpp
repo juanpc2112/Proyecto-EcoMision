@@ -1,5 +1,20 @@
 #include "EcoMision.h"
 
+
+static std::string leerLinea() {
+
+    std::string texto;
+
+    if(std::cin.peek() == '\n') {
+
+        std::cin.ignore();
+    }
+
+    std::getline(std::cin, texto);
+
+    return texto;
+}
+
 EcoMision::EcoMision() {
 
 }
@@ -22,6 +37,7 @@ EcoMision::~EcoMision() {
 }
 
 //menu principal
+
 void EcoMision::iniciar() {
 
     int opcion;
@@ -98,7 +114,7 @@ void EcoMision::crearReserva() {
     std::string nombre;
 
     std::cout << "Ingrese el nombre de la reserva: ";
-    std::cin >> nombre;
+    nombre = leerLinea();
 
     reservas.push_back(new Reserva(nombre));
 
@@ -110,7 +126,7 @@ void EcoMision::crearExplorador() {
     std::string nombre;
 
     std::cout << "Ingrese el nombre del explorador: ";
-    std::cin >> nombre;
+    nombre = leerLinea();
 
     if(buscarExplorador(nombre) != nullptr) {
 
@@ -141,10 +157,10 @@ void EcoMision::registrarZona() {
     std::string tipoZona;
 
     std::cout << "Ingrese el codigo de la zona: ";
-    std::cin >> codigo;
+    codigo = leerLinea();
 
     std::cout << "Ingrese el nombre de la zona: ";
-    std::cin >> nombre;
+    nombre = leerLinea();
 
     std::cout << "\nSeleccione el tipo de zona\n";
     std::cout << "1. Natural\n";
@@ -175,7 +191,7 @@ void EcoMision::agregarElemento() {
     std::string codigoZona;
 
     std::cout << "Ingrese el codigo de la zona: ";
-    std::cin >> codigoZona;
+    codigoZona = leerLinea();
 
     Zona* zona = reserva->buscarZona(codigoZona);
 
@@ -219,7 +235,7 @@ void EcoMision::agregarElemento() {
         case 5: {
             std::string tipo;
             std::cout << "Ingrese el tipo de semilla: ";
-            std::cin >> tipo;
+            tipo = leerLinea();
             elemento = new SemillaNativa(tipo);
             break;
         }
@@ -241,7 +257,7 @@ void EcoMision::listarReservas() {
         return;
     }
 
-    std::cout << "\n Reservas\n";
+    std::cout << "\n Reservas n";
 
     for(int i = 0; i < (int)reservas.size(); i++) {
 
@@ -262,7 +278,7 @@ void EcoMision::listarExploradores() {
         return;
     }
 
-    std::cout << "\nExploradores\n";
+    std::cout << "\nExploradores \n";
 
     for(int i = 0; i < (int)exploradores.size(); i++) {
 
@@ -285,7 +301,7 @@ void EcoMision::buscarZonaMenu() {
     std::string codigo;
 
     std::cout << "Ingrese el codigo de la zona: ";
-    std::cin >> codigo;
+    codigo = leerLinea();
 
     Zona* zona = reserva->buscarZona(codigo);
 
@@ -297,7 +313,7 @@ void EcoMision::buscarZonaMenu() {
         return;
     }
 
-    std::cout << "\n Zona encontrada \n";
+    std::cout << "\nZona encontrada\n";
     std::cout << "Codigo:      " << zona->getCodigo() << "\n";
     std::cout << "Nombre:      " << zona->getNombre() << "\n";
     std::cout << "Tipo:        " << zona->getTipoZona() << "\n";
@@ -322,7 +338,7 @@ void EcoMision::verHistorialZona() {
     std::string codigoZona;
 
     std::cout << "Ingrese el codigo de la zona: ";
-    std::cin >> codigoZona;
+    codigoZona = leerLinea();
 
     Zona* zona = reserva->buscarZona(codigoZona);
 
@@ -340,7 +356,7 @@ void EcoMision::verHistorialZona() {
     }
 }
 
-
+//control del explorador
 void EcoMision::controlarExplorador() {
 
     if(exploradores.empty()) {
@@ -352,7 +368,7 @@ void EcoMision::controlarExplorador() {
     std::string nombre;
 
     std::cout << "Ingrese el nombre del explorador: ";
-    std::cin >> nombre;
+    nombre = leerLinea();
 
     Explorador* explorador = buscarExplorador(nombre);
 
@@ -382,7 +398,7 @@ void EcoMision::controlarExplorador() {
         std::string codigoZona;
 
         std::cout << "Ingrese el codigo de la zona inicial: ";
-        std::cin >> codigoZona;
+        codigoZona = leerLinea();
 
         Zona* zona = reserva->buscarZona(codigoZona);
 
@@ -401,8 +417,7 @@ void EcoMision::controlarExplorador() {
     menuExplorador(explorador);
 }
 
-//menu del explorador
-
+//menu explorador
 void EcoMision::menuExplorador(Explorador* explorador) {
 
     int opcion;
@@ -411,7 +426,7 @@ void EcoMision::menuExplorador(Explorador* explorador) {
 
         std::cout << "\nMENU EXPLORADOR: "
                   << explorador->getNombre()
-                  << "\n";
+                  << " \n";
 
         Zona* zona = explorador->getZonaActual();
 
@@ -494,7 +509,7 @@ void EcoMision::menuExplorador(Explorador* explorador) {
                 std::cout << "Opcion invalida\n";
         }
 
-        // Actualizar zona por si cambio al moverse
+
         zona = explorador->getZonaActual();
 
     } while(opcion != 7);
@@ -536,7 +551,7 @@ void EcoMision::interactuarEnZona(Explorador* explorador) {
             std::cout << "Ingrese el nombre del elemento"
                       << " (ej: AnimalHerido, SemillaNativa): ";
             std::string nombre;
-            std::cin >> nombre;
+            nombre = leerLinea();
             zona->interactuarElemento(nombre, explorador);
         }
 
@@ -545,7 +560,7 @@ void EcoMision::interactuarEnZona(Explorador* explorador) {
             std::cout << "Ingrese la categoria"
                       << " (Natural / Contaminante / Tecnologico): ";
             std::string cat;
-            std::cin >> cat;
+            cat = leerLinea();
 
             std::cout << "Ingrese la posicion dentro de esa categoria"
                       << " (1, 2, ...): ";
@@ -589,7 +604,7 @@ void EcoMision::moverExplorador(Explorador* explorador) {
     std::string codigoZona;
 
     std::cout << "Ingrese el codigo de la zona destino: ";
-    std::cin >> codigoZona;
+    codigoZona = leerLinea();
 
     Zona* zona = reserva->buscarZona(codigoZona);
 
@@ -618,7 +633,7 @@ void EcoMision::plantarEnZona(Explorador* explorador) {
     std::string tipoSemilla;
 
     std::cout << "Ingrese el tipo de semilla a plantar: ";
-    std::cin >> tipoSemilla;
+    tipoSemilla = leerLinea();
 
     explorador->plantarSemilla(tipoSemilla);
 }
