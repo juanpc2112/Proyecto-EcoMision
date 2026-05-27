@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="EcoMision" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc-mingw32" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/EcoMision" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc-mingw32" />
+				<Compiler>
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/EcoMision" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc-mingw32" />
+				<Compiler>
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Unit filename="include/AguaContaminada.h" />
+		<Unit filename="include/AnimalHerido.h" />
+		<Unit filename="include/EcoMision.h" />
+		<Unit filename="include/ElementoInteractivo.h" />
+		<Unit filename="include/EstacionEnergia.h" />
+		<Unit filename="include/Explorador.h" />
+		<Unit filename="include/Reserva.h" />
+		<Unit filename="include/ResiduoContaminante.h" />
+		<Unit filename="include/SemillaNativa.h" />
+		<Unit filename="include/Zona.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/AguaContaminada.cpp" />
+		<Unit filename="src/AnimalHerido.cpp" />
+		<Unit filename="src/EcoMision.cpp" />
+		<Unit filename="src/ElementoInteractivo.cpp" />
+		<Unit filename="src/EstacionEnergia.cpp" />
+		<Unit filename="src/Explorador.cpp" />
+		<Unit filename="src/Reserva.cpp" />
+		<Unit filename="src/ResiduoContaminante.cpp" />
+		<Unit filename="src/SemillaNativa.cpp" />
+		<Unit filename="src/Zona.cpp" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

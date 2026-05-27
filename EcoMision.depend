@@ -1,0 +1,91 @@
+# depslib dependency file v1.0
+1779607486 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\animalherido.cpp
+	"AnimalHerido.h"
+	"Explorador.h"
+
+1779607933 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\animalherido.h
+	"ElementoInteractivo.h"
+
+1779607390 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\elementointeractivo.h
+	<iostream>
+	<string>
+
+1779664366 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\explorador.h
+	<iostream>
+	<string>
+	<vector>
+
+1779607401 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\elementointeractivo.cpp
+	"ElementoInteractivo.h"
+
+1779663047 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\estacionenergia.cpp
+	"EstacionEnergia.h"
+	"Explorador.h"
+
+1779663040 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\estacionenergia.h
+	"ElementoInteractivo.h"
+
+1779608054 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\semillanativa.cpp
+	"SemillaNativa.h"
+	"Explorador.h"
+
+1779608042 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\semillanativa.h
+	"ElementoInteractivo.h"
+
+1779606287 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\main.cpp
+	"EcoMision.h"
+
+1779914287 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\ecomision.h
+	<iostream>
+	<string>
+	<vector>
+	"Reserva.h"
+	"Explorador.h"
+	"Zona.h"
+	"AguaContaminada.h"
+	"AnimalHerido.h"
+	"EstacionEnergia.h"
+	"ResiduoContaminante.h"
+	"SemillaNativa.h"
+
+1779913597 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\reserva.h
+	<iostream>
+	<string>
+	<vector>
+	<unordered_map>
+	"Zona.h"
+
+1779912984 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\zona.h
+	<iostream>
+	<string>
+	<vector>
+	"ElementoInteractivo.h"
+	"Explorador.h"
+
+1779833989 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\aguacontaminada.cpp
+	"AguaContaminada.h"
+	"Explorador.h"
+
+1779607931 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\aguacontaminada.h
+	"ElementoInteractivo.h"
+
+1779834464 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\ecomision.cpp
+	"EcoMision.h"
+
+1779913830 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\explorador.cpp
+	"Explorador.h"
+	"Zona.h"
+
+1779913804 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\reserva.cpp
+	"Reserva.h"
+
+1779666371 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\residuocontaminante.cpp
+	"ResiduoContaminante.h"
+	"Explorador.h"
+
+1779608076 c:\users\juanp\onedrive\documentos\codeblocks\ecomision\include\residuocontaminante.h
+	"ElementoInteractivo.h"
+
+1779913058 source:c:\users\juanp\onedrive\documentos\codeblocks\ecomision\src\zona.cpp
+	"Zona.h"
+
