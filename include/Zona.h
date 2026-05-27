@@ -65,6 +65,8 @@ public:
     bool estaContaminada();
 
     void setContaminada(bool estado);
+
+    ~Zona();
 };
 
 #endif

@@ -22,7 +22,7 @@ private:
 
     std::vector<Explorador*> exploradores;
 
-    // Menu principal
+//menu principal
     void crearReserva();
     void crearExplorador();
     void registrarZona();
@@ -31,20 +31,20 @@ private:
     void listarExploradores();
     void controlarExplorador();
     void verHistorialZona();
-
-    // Menu del explorador
+    void buscarZonaMenu();
+//menu del explorador
     void menuExplorador(Explorador* explorador);
     void moverExplorador(Explorador* explorador);
     void interactuarEnZona(Explorador* explorador);
     void plantarEnZona(Explorador* explorador);
-
-    // Utilidades
     Reserva* seleccionarReserva();
     Explorador* buscarExplorador(std::string nombre);
 
 public:
 
     EcoMision();
+
+    ~EcoMision();
 
     void iniciar();
 };

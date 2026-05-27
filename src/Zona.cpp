@@ -11,9 +11,7 @@ Zona::Zona(std::string nombre,
     contaminada = false;
 }
 
-// ─────────────────────────────────────────
-//  METODOS PRIVADOS
-// ─────────────────────────────────────────
+//metodos privados
 
 void Zona::recalcularContaminacion() {
 
@@ -53,9 +51,7 @@ void Zona::registrarInteraccion(std::string nombreElemento,
     );
 }
 
-// ─────────────────────────────────────────
-//  METODOS PUBLICOS
-// ─────────────────────────────────────────
+//metodos publicos
 
 void Zona::agregarElemento(ElementoInteractivo* elemento) {
 
@@ -145,11 +141,7 @@ void Zona::mostrarInfoNatural() {
               << semillas << "\n";
 }
 
-// ─────────────────────────────────────────
-//  SOBRECARGAS DE interactuarElemento
-// ─────────────────────────────────────────
-
-// Sobrecarga 1: por indice
+//Sobrecargas
 void Zona::interactuarElemento(int indice,
                                Explorador* explorador) {
 
@@ -175,7 +167,7 @@ void Zona::interactuarElemento(int indice,
     std::cout << "El elemento desaparecio de la zona\n";
 }
 
-// Sobrecarga 2: por nombre del elemento
+
 void Zona::interactuarElemento(std::string nombreElemento,
                                Explorador* explorador) {
 
@@ -204,7 +196,6 @@ void Zona::interactuarElemento(std::string nombreElemento,
     std::cout << "Elemento no encontrado\n";
 }
 
-// Sobrecarga 3: por categoria y posicion dentro de esa categoria
 void Zona::interactuarElemento(std::string categoria,
                                int cual,
                                Explorador* explorador) {
@@ -244,9 +235,6 @@ void Zona::interactuarElemento(std::string categoria,
               << categoria << "\n";
 }
 
-// ─────────────────────────────────────────
-//  GETTERS
-// ─────────────────────────────────────────
 
 std::string Zona::getNombre() {
 
@@ -271,4 +259,14 @@ bool Zona::estaContaminada() {
 void Zona::setContaminada(bool estado) {
 
     contaminada = estado;
+}
+
+Zona::~Zona() {
+
+    for(int i = 0; i < elementos.size(); i++) {
+
+        delete elementos[i];
+    }
+
+    elementos.clear();
 }

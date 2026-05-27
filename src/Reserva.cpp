@@ -16,7 +16,10 @@ void Reserva::agregarZona(std::string codigo,
         return;
     }
 
+
     zonas[codigo] = zona;
+
+    listaZonas.push_back(zona);
 
     std::cout << "Zona agregada correctamente\n";
 }
@@ -33,7 +36,7 @@ Zona* Reserva::buscarZona(std::string codigo) {
 
 void Reserva::mostrarZonas() {
 
-    if(zonas.size() == 0) {
+    if(listaZonas.size() == 0) {
 
         std::cout << "No hay zonas registradas\n";
         return;
@@ -41,20 +44,34 @@ void Reserva::mostrarZonas() {
 
     std::cout << "\nZonas de la reserva " << nombre << ":\n";
 
-    for(auto zona : zonas) {
+    for(int i = 0; i < listaZonas.size(); i++) {
 
-        std::cout << "Codigo: "
-                  << zona.first
+        std::cout << i + 1
+                  << ". "
+                  << "Codigo: "
+                  << listaZonas[i]->getCodigo()
                   << " | Nombre: "
-                  << zona.second->getNombre()
+                  << listaZonas[i]->getNombre()
                   << " | Tipo: "
-                  << zona.second->getTipoZona()
-                  << (zona.second->estaContaminada() ? " [CONTAMINADA]" : "")
-                  << std::endl;
+                  << listaZonas[i]->getTipoZona()
+                  << (listaZonas[i]->estaContaminada() ? " [CONTAMINADA]" : "")
+                  << "\n";
     }
 }
 
 std::string Reserva::getNombre() {
 
     return nombre;
+}
+
+Reserva::~Reserva() {
+
+    for(int i = 0; i < listaZonas.size(); i++) {
+
+        delete listaZonas[i];
+    }
+
+    listaZonas.clear();
+
+    zonas.clear();
 }

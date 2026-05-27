@@ -13,8 +13,8 @@ class Reserva {
 private:
 
     std::string nombre;
-
     std::unordered_map<std::string, Zona*> zonas;
+    std::vector<Zona*> listaZonas;
 
 public:
 
@@ -28,6 +28,8 @@ public:
     void mostrarZonas();
 
     std::string getNombre();
+
+    ~Reserva();
 };
 
 #endif

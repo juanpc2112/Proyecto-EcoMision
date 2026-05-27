@@ -4,17 +4,31 @@ EcoMision::EcoMision() {
 
 }
 
-// ─────────────────────────────────────────
-//  MENU PRINCIPAL
-// ─────────────────────────────────────────
+EcoMision::~EcoMision() {
 
+    for(int i = 0; i < reservas.size(); i++) {
+
+        delete reservas[i];
+    }
+
+    reservas.clear();
+
+    for(int i = 0; i < exploradores.size(); i++) {
+
+        delete exploradores[i];
+    }
+
+    exploradores.clear();
+}
+
+//menu principal
 void EcoMision::iniciar() {
 
     int opcion;
 
     do {
 
-        std::cout << "\n===== ECO MISION =====\n";
+        std::cout << "\nECO MISION \n";
         std::cout << "1. Crear reserva\n";
         std::cout << "2. Crear explorador\n";
         std::cout << "3. Registrar zona en una reserva\n";
@@ -23,7 +37,8 @@ void EcoMision::iniciar() {
         std::cout << "6. Listar exploradores\n";
         std::cout << "7. Controlar explorador\n";
         std::cout << "8. Ver historial de una zona\n";
-        std::cout << "9. Salir\n";
+        std::cout << "9. Buscar zona por codigo\n";
+        std::cout << "10. Salir\n";
         std::cout << "Opcion: ";
 
         std::cin >> opcion;
@@ -63,6 +78,10 @@ void EcoMision::iniciar() {
                 break;
 
             case 9:
+                buscarZonaMenu();
+                break;
+
+            case 10:
                 std::cout << "Saliendo del sistema...\n";
                 break;
 
@@ -70,13 +89,10 @@ void EcoMision::iniciar() {
                 std::cout << "Opcion invalida\n";
         }
 
-    } while(opcion != 9);
+    } while(opcion != 10);
 }
 
-// ─────────────────────────────────────────
-//  CREACION
-// ─────────────────────────────────────────
-
+//creacion de todo
 void EcoMision::crearReserva() {
 
     std::string nombre;
@@ -216,10 +232,7 @@ void EcoMision::agregarElemento() {
     zona->agregarElemento(elemento);
 }
 
-// ─────────────────────────────────────────
-//  LISTADOS
-// ─────────────────────────────────────────
-
+//listas
 void EcoMision::listarReservas() {
 
     if(reservas.empty()) {
@@ -228,7 +241,7 @@ void EcoMision::listarReservas() {
         return;
     }
 
-    std::cout << "\n--- Reservas ---\n";
+    std::cout << "\n Reservas\n";
 
     for(int i = 0; i < (int)reservas.size(); i++) {
 
@@ -249,12 +262,49 @@ void EcoMision::listarExploradores() {
         return;
     }
 
-    std::cout << "\n--- Exploradores ---\n";
+    std::cout << "\nExploradores\n";
 
     for(int i = 0; i < (int)exploradores.size(); i++) {
 
         exploradores[i]->mostrarEstado();
     }
+}
+
+void EcoMision::buscarZonaMenu() {
+
+    if(reservas.empty()) {
+
+        std::cout << "No hay reservas creadas\n";
+        return;
+    }
+
+    Reserva* reserva = seleccionarReserva();
+
+    if(reserva == nullptr) return;
+
+    std::string codigo;
+
+    std::cout << "Ingrese el codigo de la zona: ";
+    std::cin >> codigo;
+
+    Zona* zona = reserva->buscarZona(codigo);
+
+    if(zona == nullptr) {
+
+        std::cout << "No se encontro ninguna zona "
+                  << "con el codigo \""
+                  << codigo << "\"\n";
+        return;
+    }
+
+    std::cout << "\n Zona encontrada \n";
+    std::cout << "Codigo:      " << zona->getCodigo() << "\n";
+    std::cout << "Nombre:      " << zona->getNombre() << "\n";
+    std::cout << "Tipo:        " << zona->getTipoZona() << "\n";
+    std::cout << "Contaminada: "
+              << (zona->estaContaminada() ? "Si" : "No") << "\n";
+
+    zona->mostrarElementos();
 }
 
 void EcoMision::verHistorialZona() {
@@ -290,9 +340,6 @@ void EcoMision::verHistorialZona() {
     }
 }
 
-// ─────────────────────────────────────────
-//  CONTROLAR EXPLORADOR
-// ─────────────────────────────────────────
 
 void EcoMision::controlarExplorador() {
 
@@ -324,7 +371,7 @@ void EcoMision::controlarExplorador() {
         }
 
         std::cout << "\nEl explorador no tiene zona asignada\n";
-        std::cout << "Seleccione una reserva por su numero para ingresar:\n";
+        std::cout << "Seleccione una reserva para ingresar:\n";
 
         Reserva* reserva = seleccionarReserva();
 
@@ -354,9 +401,7 @@ void EcoMision::controlarExplorador() {
     menuExplorador(explorador);
 }
 
-// ─────────────────────────────────────────
-//  MENU DEL EXPLORADOR
-// ─────────────────────────────────────────
+//menu del explorador
 
 void EcoMision::menuExplorador(Explorador* explorador) {
 
@@ -364,9 +409,9 @@ void EcoMision::menuExplorador(Explorador* explorador) {
 
     do {
 
-        std::cout << "\n===== MENU EXPLORADOR: "
+        std::cout << "\nMENU EXPLORADOR: "
                   << explorador->getNombre()
-                  << " =====\n";
+                  << "\n";
 
         Zona* zona = explorador->getZonaActual();
 
@@ -578,9 +623,6 @@ void EcoMision::plantarEnZona(Explorador* explorador) {
     explorador->plantarSemilla(tipoSemilla);
 }
 
-// ─────────────────────────────────────────
-//  UTILIDADES
-// ─────────────────────────────────────────
 
 Reserva* EcoMision::seleccionarReserva() {
 

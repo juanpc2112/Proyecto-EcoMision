@@ -125,7 +125,7 @@ void Explorador::mostrarSemillas() {
 
 void Explorador::mostrarEstado() {
 
-    std::cout << "\n--- Estado de " << nombre << " ---\n";
+    std::cout << "\nEstado de " << nombre << "\n";
     std::cout << "Energia:          " << energia << "/100\n";
     std::cout << "Puntaje ambiental: " << puntajeAmbiental << "\n";
 
@@ -147,7 +147,7 @@ void Explorador::mostrarEstado() {
 
     mostrarSemillas();
 
-    std::cout << "-----------------------------\n";
+    std::cout << "\n";
 }
 
 std::string Explorador::getNombre() {
