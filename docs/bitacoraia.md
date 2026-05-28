@@ -59,3 +59,9 @@ clase, por eso lo cambiamos a privado.
 
 ## ¿Qué parte del proyecto debe poder defender cada integrante?
 
+Juan Pantoja:Conoce bien el diseño del sistema, las relaciones entre clases y las decisiones de diseño.
+Puede explicar el funcionamiento del código y modificarlo con un poco de dificultad.
+
+Mariana Guzmán:Comprende el diseño del sistema, las relaciones entre clases y las decisiones de diseño. 
+En cuanto al código, maneja los conceptos generales de cada clase y puede explicar su funcionamiento.
+
