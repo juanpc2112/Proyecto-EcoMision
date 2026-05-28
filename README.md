@@ -57,24 +57,26 @@ Los archivos fuente deben estar en la carpeta `/src` y los headers en `/include`
 
 ### Menú principal
 
-<!-- Insertar imagen del menú principal -->
+![Menu principal](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/Menuprincipal.png)
 
 ### Creación de reserva y zonas
 
-<!-- Insertar imagen creando una reserva con varias zonas -->
+![creacionReserval](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/CreacionReserva.png)
+
+![creacionzona](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/Creacionzona.png)
 
 ### Menú del explorador
 
-<!-- Insertar imagen del menú del explorador dentro de una zona -->
+![Menu Explorador](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/MenuExplorador.png)
 
 ### Interacción con elementos
 
-<!-- Insertar imagen de una interacción y sus efectos en energía y puntaje -->
+![InteraccionElemento](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/InteraccionElemento.png)
 
 ### Historial de una zona
 
-<!-- Insertar imagen del historial de interacciones de una zona -->
+![HistorialZona](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/HistorialZona.png)
 
 ### Búsqueda de zona por código
 
-<!-- Insertar imagen de la búsqueda de una zona por código -->
+![Busquedazonacodigo](https://github.com/juanpc2112/Proyecto-EcoMision/blob/master/docs/images/BuscarZonaCodigo.png)
